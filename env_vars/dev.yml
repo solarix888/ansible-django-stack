@@ -1,9 +1,9 @@
 ---
 
 # Database settings.
-db_user: "{{ application_name }}"
+db_user: root
 db_name: "{{ application_name }}"
-db_password: password
+db_password: admin
 
 
 # Gunicorn settings. For the number of workers, a good rule to follow is
@@ -44,7 +44,7 @@ smtp_password: mypassword
 
 # Application settings.
 django_settings_file: settings.dev
-django_secret_key: akr2icmg1n8%z^3fe3c+)5d0(t^cy-2_25rrl35a7@!scna^1#
+django_secret_key: !gb1%mirpk%690yzfs%-8bw6d03a22!3a%!ovx6rzh$bi$2gs
 
 run_django_syncdb: yes
 run_django_south_migration: yes

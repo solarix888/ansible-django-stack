@@ -31,7 +31,7 @@
             dest={{ virtualenv_path }}/bin/postactivate
             owner={{ gunicorn_user }}
             group={{ gunicorn_group }}
-            mode=0640
+            mode=0755
             backup=yes
 
 - name: Set permission to the application log file

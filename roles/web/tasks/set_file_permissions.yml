@@ -1,9 +1,10 @@
 ---
 
 - name: Ensure that the application file permissions are set properly
-  file: path={{ virtualenv_path }}
+  file: path={{ project_path }}
         recurse=yes
         owner={{ gunicorn_user }}
         group={{ gunicorn_group }}
         state=directory
+        mode='g+w'
   notify: restart application

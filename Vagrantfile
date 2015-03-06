@@ -16,12 +16,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Shared folder from the host machine to the guest machine. Uncomment the line
   # below to enable it.
-  config.vm.synced_folder "/Users/xuening/project_kid", "/project_kid"
+  config.vm.synced_folder "/Users/xuening/project_kid", "/vagrant/project_kid"
 
+  # Share ssh
+  config.ssh.forward_agent = true
   # Ansible provisioner.
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "vagrant.yml"
     ansible.host_key_checking = false
     ansible.verbose = "v"
+    ansible.sudo = true
   end
 end
+
+

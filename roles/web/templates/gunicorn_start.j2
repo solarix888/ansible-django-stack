@@ -2,7 +2,7 @@
 
 NAME="{{ application_name }}"
 DJANGODIR={{ application_path }}
-SOCKFILE={{ virtualenv_path }}/run/gunicorn.sock
+# SOCKFILE={{ virtualenv_path }}/run/gunicorn.sock
 USER={{ gunicorn_user }}
 GROUP={{ gunicorn_group }}
 NUM_WORKERS={{ gunicorn_num_workers }}
@@ -16,14 +16,14 @@ echo "Starting $NAME as `whoami`"
 
 # Activate the virtual environment.
 cd $DJANGODIR
-. ../../bin/activate
+. {{ virtualenv_path }}/bin/activate
 
 # Set additional environment variables.
-. ../../bin/postactivate
+. {{ virtualenv_path }}/bin/postactivate
 
-# Create the run directory if it doesn't exist.
-RUNDIR=$(dirname $SOCKFILE)
-test -d $RUNDIR || mkdir -p $RUNDIR
+# # Create the run directory if it doesn't exist.
+# RUNDIR=$(dirname $SOCKFILE)
+# test -d $RUNDIR || mkdir -p $RUNDIR
 
 # Programs meant to be run under supervisor should not daemonize themselves
 # (do not use --daemon).
@@ -31,7 +31,6 @@ exec gunicorn \
     --name $NAME \
     --workers $NUM_WORKERS \
     --max-requests $MAX_REQUESTS \
-    --user $USER --group $GROUP \
     --log-level debug \
-    --bind unix:$SOCKFILE \
-    {{ application_name }}.wsgi
+    --bind {{ upstream_addr }} \
+    wsgi

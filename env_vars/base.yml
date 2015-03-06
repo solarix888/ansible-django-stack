@@ -4,3 +4,5 @@ git_repo: git@github.com:dimz119/project_kid.git
 
 project_name: project-kid
 application_name: project-kid
+
+authorized_key: user=xuening key="{{ lookup('file', '/home/xuening/.ssh/id_rsa.pub') }}"

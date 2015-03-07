@@ -1,13 +1,11 @@
 ---
 
-
-
 - name: Create the virtualenv
   command: virtualenv {{ virtualenv_path }} --no-site-packages
            creates={{ virtualenv_path }}/bin/activate
 
-- name: copy up bash_profile.sh
-  copy: dest=~/.bash_profile
+- name: Copy up bash_profile.sh
+  copy: dest={{ virtualenv_path }}/../../.bash_profile
         src=bash_profile.sh
 
 

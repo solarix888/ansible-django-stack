@@ -3,7 +3,7 @@
 - name: Provision a {{ application_name }} server
   hosts: all
   sudo: yes
-  sudo_user: vagrant 
+  sudo_user: root 
   remote_user: vagrant
   vars:
     - setup_git_repo: yes

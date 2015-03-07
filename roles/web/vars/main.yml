@@ -1,9 +1,10 @@
 ---
 
 # Application settings.
-virtualenv_path: "/vagrant/.virtualenv"
-project_path: "/vagrant/{{ project_name }}"
-application_path: "/vagrant/{{ application_name }}"
+virtualenv_path: "/home/vagrant/.virtualenv/project_kid"
+venv: "project_kid"
+project_path: "/home/vagrant/{{ project_name }}"
+application_path: "/home/vagrant/{{ application_name }}"
 application_log_dir: "/var/log/{{ application_name }}/"
 application_log_file: "/var/log/{{ application_name }}/gunicorn_supervisor.log"
 requirements_file: "{{ project_path }}/requirements.txt"

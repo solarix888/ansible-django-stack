@@ -4,7 +4,7 @@ ansible-django-stack
 Ansible Playbook designed for environments running a Django app.  It can install and configure these applications that are commonly used in production Django deployments:
 - Nginx
 - Gunicorn
-- PostgreSQL
+- MySQL
 - Supervisor
 - Virtualenv
 - Memcached
@@ -27,7 +27,6 @@ A quick way to get started is with Vagrant and VirtualBox.
 
 The main settings to change here is in the **env_vars/base** file, where you can configure the location of your Git project, the project name, and application name which will be used throughout the Ansible configuration.
 
-I set some default values here using my open-source app, [GlucoseTracker](https://github.com/jcalazan/glucose-tracker), so all you really have to do is type in this one command in the project root:
 ```
 vagrant up
 ```

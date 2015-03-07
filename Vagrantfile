@@ -11,15 +11,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :private_network, ip: "192.168.33.15"
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--name", "ProjectKid", "--memory", "512"]
+    vb.customize ["modifyvm", :id, "--name", "ProjectKid", "--memory", "2046"]
   end
 
   # Shared folder from the host machine to the guest machine. Uncomment the line
   # below to enable it.
-  config.vm.synced_folder "/Users/xuening/project_kid", "/vagrant/project_kid"
+  config.vm.synced_folder "~/project_kid", "/home/vagrant/project_kid"
 
   # Share ssh
   config.ssh.forward_agent = true
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+  
   # Ansible provisioner.
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "vagrant.yml"

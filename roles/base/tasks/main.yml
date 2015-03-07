@@ -33,3 +33,7 @@
 - name: Install virtualenv
   pip: name=virtualenv
   tags: packages
+
+- name: Install virtualenvwrapper
+  pip: name=virtualenvwrapper
+  tags: packages

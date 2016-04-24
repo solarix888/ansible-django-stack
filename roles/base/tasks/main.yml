@@ -4,7 +4,7 @@
   when: create_swap_file
   tags: swap
 
-- name: Ensure bash, OpenSSl, and libssl are the latest versions
+- name: Ensure bash, OpenSSL, and libssl are the latest versions
   apt: name={{ item }} update_cache={{ update_apt_cache }} state=latest
   with_items:
     - bash
@@ -17,21 +17,19 @@
   apt: name={{ item }} update_cache={{ update_apt_cache }} force=yes state=installed
   with_items:
     - build-essential
+    - acl
     - ntp
     - htop
     - git
+    - libpq-dev
     - python-dev
     - python-pip
     - python-pycurl
     - supervisor
   tags: packages
 
-- name: Install newrelic
-  pip: name=newrelic
-  tags: packages
-
-- name: Install virtualenv
-  pip: name=virtualenv
+- name: Upgrade pip
+  pip: name=pip state=latest
   tags: packages
 
 - name: Install virtualenvwrapper

@@ -1,4 +1,4 @@
-upstream wsgi_server {
+upstream {{ application_name }}_wsgi_server {
   # fail_timeout=0 means we always retry an upstream even if it failed
   # to return a good HTTP response (in case the Unicorn master nukes a
   # single worker for timing out).
@@ -38,12 +38,21 @@ server {
         proxy_set_header Host $http_host;
         proxy_redirect off;
 
+<<<<<<< HEAD
         proxy_pass   http://wsgi_server;
+=======
+        # Try to serve static files from nginx, no point in making an
+        # *application* server like Unicorn/Rainbows! serve static files.
+        if (!-f $request_filename) {
+            proxy_pass http://{{ application_name }}_wsgi_server;
+            break;
+        }
+>>>>>>> 752705b805733dcaeef5fc9935ae988a20e7d32f
     }
 
     error_page 500 502 503 504 /500.html;
     location = /500.html {
-        root {{ application_path }}/templates/;
+        root {{ project_path }}/{{ application_name }}/templates/;
     }
     error_page 503 /maintenance_on.html;
     location = /maintenance_on.html {

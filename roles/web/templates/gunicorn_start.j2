@@ -1,8 +1,8 @@
 #!/bin/sh
 
 NAME="{{ application_name }}"
-DJANGODIR={{ application_path }}
-# SOCKFILE={{ virtualenv_path }}/run/gunicorn.sock
+DJANGODIR="{{ project_path }}"
+SOCKFILE={{ virtualenv_path }}/run/gunicorn.sock
 USER={{ gunicorn_user }}
 GROUP={{ gunicorn_group }}
 NUM_WORKERS={{ gunicorn_num_workers }}
@@ -31,6 +31,8 @@ exec gunicorn \
     --name $NAME \
     --workers $NUM_WORKERS \
     --max-requests $MAX_REQUESTS \
+    --timeout {{ gunicorn_timeout_seconds|default(30) }} \
+    --user $USER --group $GROUP \
     --log-level debug \
-    --bind {{ upstream_addr }} \
-    wsgi
+    --bind unix:$SOCKFILE \
+    {{ application_name }}.wsgi

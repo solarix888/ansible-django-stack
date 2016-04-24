@@ -1,5 +1,9 @@
 ---
 
+- name: Install virtualenv
+  pip: name=virtualenv
+  tags: packages
+
 - name: Create the virtualenv
   command: virtualenv {{ virtualenv_path }} --no-site-packages
            creates={{ virtualenv_path }}/bin/activate
@@ -19,6 +23,7 @@
             group={{ gunicorn_group }}
             mode=0755
             backup=yes
+  tags: deploy
 
 - name: Create the application log folder
   file: path={{ application_log_dir }}
@@ -38,6 +43,7 @@
             group={{ gunicorn_group }}
             mode=0755
             backup=yes
+  tags: deploy
 
 - name: Set permission to the application log file
   file: path={{ application_log_file }}

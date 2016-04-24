@@ -1,5 +1,4 @@
 ---
-
-git_repo: git@github.com:dimz119/project_kid.git
-project_name: project_kid
-application_name: project_kid
+git_repo: git@github.com:solarix888/drf-react.git
+project_name: test
+application_name: django-rest-react

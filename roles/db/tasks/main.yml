@@ -6,28 +6,30 @@
     cache_valid_time: 3600
     state: present
   with_items:
-  - python-mysqldb
-  - mysql-server
-  - libmysqlclient-dev
-- name: Start the MySQL service
-  service: 
-    name: mysql 
-    state: started
-    enabled: true
-- name: update mysql root password for all root accounts
-  mysql_user: 
-    name: root 
-    host: "{{ item }}" 
-    password: admin
-    login_user: root
-    login_password: admin
-    check_implicit_admin: yes
-    priv: "*.*:ALL,GRANT"
-  with_items:
-    - "{{ ansible_hostname }}"
-    - 127.0.0.1
-    - ::1
-    - localhost
+    - postgresql
+    - postgresql-contrib
+    - python-psycopg2
+  tags: packages
+
+- name: Ensure the PostgreSQL service is running
+  service: name=postgresql state=started enabled=yes
+
+- name: Ensure database is created
+  sudo_user: postgres
+  postgresql_db: name={{ db_name }}
+                 encoding='UTF-8'
+                 lc_collate='en_US.UTF-8'
+                 lc_ctype='en_US.UTF-8'
+                 template='template0'
+                 state=present
+
+- name: Ensure user has access to the database
+  sudo_user: postgres
+  postgresql_user: db={{ db_name }}
+                   name={{ db_user }}
+                   password={{ db_password }}
+                   priv=ALL
+                   state=present
 
 # Create a new database with name 'bobdata'
 - mysql_db: name={{ application_name }} state=present login_user=root login_password=admin
